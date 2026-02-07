@@ -19,7 +19,8 @@ struct ball {
 	float ay;
 
 	//color:
-	Color color;
+	Color color; 
+
 	/* Color is defined in raylib 
 	typedef struct Color {
 	unsigned char r;  // Red (0-255)
@@ -55,13 +56,14 @@ int main() {
 			newBall.bally = GetMouseY();
 
 			//velocity of every new ball:
-			newBall.velx = 0; // Don't want horizontal velocity rn
-			newBall.vely = 0; //(setting it to be same temporarily)
-			
+			newBall.velx = 0;
+			newBall.vely = GetRandomValue(0, 3); // small initial vertical velocity only +ve
+
 			newBall.ay = 90; 
 			newBall.ax = 0;
 
-			newBall.color = PINK; //setting same color for now
+			Color colors[] = { PINK, ORANGE, DARKBLUE, SKYBLUE, PURPLE, RED, GREEN }; //list of colors
+			newBall.color = colors[GetRandomValue(0, 6)]; //assigning a random color to every new ball
 
 			//adding every new ball to the vector
 			balls.push_back(newBall);
@@ -110,7 +112,7 @@ int main() {
 		// raylib custom color: Color myColor = { red, green, blue, alpha };  // Each value 0-255
 		 
 		//clears screen with specified color to prevent overlapping drawings
-		ClearBackground(LIGHTGRAY);
+		ClearBackground(BLACK);
 
 		//drawing a circle: x position, y position, radius, color
 
