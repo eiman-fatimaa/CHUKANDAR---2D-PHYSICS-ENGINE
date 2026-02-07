@@ -65,7 +65,16 @@ int main() {
 		// for all balls in the vector
 		for (int i = 0; i < balls.size(); i++) {
 			balls[i].ballx += balls[i].velx; //adding velocity of every ball to its current position 
-			balls[i].bally += balls[i].vely; 
+			balls[i].bally += balls[i].vely;
+
+			// 800- radius 20 = 780 = boundary
+			if (balls[i].ballx >= 780 || balls[i].ballx <= 20){
+				balls[i].velx *= -1; //reversing velocity for bouncing
+			}
+
+			if (balls[i].bally >= 780 || balls[i].bally <= 20) {
+				balls[i].vely *= -1;
+			}
 		}
 
 		//3. Drawing
