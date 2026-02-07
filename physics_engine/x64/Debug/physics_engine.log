@@ -1,4 +1,9 @@
 ﻿  physics_engine.cpp
+D:\repos\physics_engine\physics_engine\physics_engine.cpp(79,30): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\repos\physics_engine\physics_engine\physics_engine.cpp(80,30): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\repos\physics_engine\physics_engine\physics_engine.cpp(84,22): warning C4305: '*=': truncation from 'double' to 'float'
+D:\repos\physics_engine\physics_engine\physics_engine.cpp(93,22): warning C4305: '*=': truncation from 'double' to 'float'
+D:\repos\physics_engine\physics_engine\physics_engine.cpp(97,22): warning C4305: '*=': truncation from 'double' to 'float'
   physics_engine.vcxproj -> D:\repos\physics_engine\x64\Debug\physics_engine.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

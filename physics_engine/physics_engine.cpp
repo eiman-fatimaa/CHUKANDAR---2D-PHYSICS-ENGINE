@@ -11,8 +11,12 @@ struct ball {
 	int bally;
 
 	//velocity:
-	int velx;
-	int vely;
+	float velx;
+	float vely;
+
+	//acceleration:
+	float ax;
+	float ay;
 
 	//color:
 	Color color;
@@ -52,7 +56,10 @@ int main() {
 
 			//velocity of every new ball:
 			newBall.velx = 0; // Don't want horizontal velocity rn
-			newBall.vely = 3; //(setting it to be same temporarily)
+			newBall.vely = 0; //(setting it to be same temporarily)
+			
+			newBall.ay = 90; 
+			newBall.ax = 0;
 
 			newBall.color = PINK; //setting same color for now
 
@@ -62,18 +69,33 @@ int main() {
 
 		//2. Updating position
 		
+		float time = 1.0f / 60.0f; //time per frame (1/fps)
+
 		// for all balls in the vector
 		for (int i = 0; i < balls.size(); i++) {
+			// gravity
+			balls[i].vely += balls[i].ay * time; // v = u + at
+
 			balls[i].ballx += balls[i].velx; //adding velocity of every ball to its current position 
 			balls[i].bally += balls[i].vely;
 
 			// 800- radius 20 = 780 = boundary
 			if (balls[i].ballx >= 780 || balls[i].ballx <= 20){
-				balls[i].velx *= -1; //reversing velocity for bouncing
+				balls[i].velx *= -0.95; //reversing velocity for bouncing
+
+				//preventing going out of boundaries
+				if (balls[i].ballx > 780) balls[i].ballx = 780;
+				if (balls[i].ballx < 20) balls[i].ballx = 20;
+
 			}
 
-			if (balls[i].bally >= 780 || balls[i].bally <= 20) {
-				balls[i].vely *= -1;
+			if (balls[i].bally >= 780) {
+				balls[i].vely *= -0.95; //95% energy is conserved 
+				balls[i].bally = 780; //preventing going out of boundaries
+			}
+			if (balls[i].bally <= 20) {
+				balls[i].vely *= -0.95;
+				balls[i].bally = 20;
 			}
 		}
 
