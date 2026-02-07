@@ -83,7 +83,7 @@ int main() {
 
 			// 800- radius 20 = 780 = boundary
 			if (balls[i].ballx >= 780 || balls[i].ballx <= 20){
-				balls[i].velx *= -0.95; //reversing velocity for bouncing
+				balls[i].velx *= -1; //reversing velocity
 
 				//preventing going out of boundaries
 				if (balls[i].ballx > 780) balls[i].ballx = 780;
@@ -92,7 +92,12 @@ int main() {
 			}
 
 			if (balls[i].bally >= 780) {
-				balls[i].vely *= -0.95; //95% energy is conserved 
+				// THIS DIDNT WORK! bcz this function only works for ints 
+				// balls[i].vely *= GetRandomValue(-0.95, -0.75); 
+
+				balls[i].vely *= ((GetRandomValue(-95, -75) / 100.0f));
+				//different energy loss for different balls bcz who knows maybe they have different weights
+
 				balls[i].bally = 780; //preventing going out of boundaries
 			}
 			if (balls[i].bally <= 20) {
