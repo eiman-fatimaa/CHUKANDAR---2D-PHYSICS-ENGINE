@@ -1,12 +1,37 @@
 #include <raylib.h>
 #include <iostream>
 #include <cmath>
-#include <vector>
+#include <vector> //using vectors to store all the balls
+using namespace std;
+
+//making a struct (can use class) to define a ball
+struct ball {
+	//position:
+	int ballx;
+	int bally;
+
+	//velocity:
+	int velx;
+	int vely;
+
+	//color:
+	Color color;
+	/* Color is defined in raylib 
+	typedef struct Color {
+	unsigned char r;  // Red (0-255)
+	unsigned char g;  // Green (0-255)
+	unsigned char b;  // Blue (0-255)
+	unsigned char a;  // Alpha/transparency (0-255)
+    } Color;
+*/
+};
+
 int main() {
 //creating game window
-	int ballx = 400;
-	int bally = 400;
-	//initWindow(width is pixels, height, window name)
+
+	vector<ball> balls; //a vector to store all balls
+
+	//initWindow(width in pixels, height, window name)
 	InitWindow(800, 800, "Eiman's Angry Escape");
 	
 	SetTargetFPS(60); //takes in an integer
@@ -19,32 +44,49 @@ int main() {
 		//it returns true and game loop ends
 
 		//1. Event handling
-		if (IsKeyDown(KEY_UP)) {
-			bally -= 3; //decreases y coordinate of ball by 3 pixels every frame
-		}
-		if (IsKeyDown(KEY_DOWN)) {
-			bally += 3; //increases y coordinate of ball by 3 pixels every frame
-		}
-		if (IsKeyDown(KEY_LEFT)) {
-			ballx -= 3; //decreases x coordinate of ball by 3 pixels every frame
-		}
-		if (IsKeyDown(KEY_RIGHT)) {
-			ballx += 3; //increases x coordinate of ball by 3 pixels every frame
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) // built-in function (parameter)
+		{
+			ball newBall; //creating a new ball 
+			newBall.ballx = GetMouseX(); //new ball will be created at mouse position
+			newBall.bally = GetMouseY();
+
+			//velocity of every new ball:
+			newBall.velx = 0; // Don't want horizontal velocity rn
+			newBall.vely = 3; //(setting it to be same temporarily)
+
+			newBall.color = PINK; //setting same color for now
+
+			//adding every new ball to the vector
+			balls.push_back(newBall);
 		}
 
 		//2. Updating position
-		//increases y coordinate of ball by 3 pixels every frame
-		bally += 3; //gravity, makes ball fall down
+		
+		// for all balls in the vector
+		for (int i = 0; i < balls.size(); i++) {
+			balls[i].ballx += balls[i].velx; //adding velocity of every ball to its current position 
+			balls[i].bally += balls[i].vely; 
+		}
 
 		//3. Drawing
 		BeginDrawing();
+
+		/* raylib built - in colors : LIGHTGRAY, GRAY, DARKGRAY, YELLOW, GOLD, ORANGE, PINK, RED, 
+		                              MAROON, GREEN, LIME, DARKGREEN, SKYBLUE, BLUE, DARKBLUE, PURPLE, 
+									  VIOLET, DARKPURPLE, BEIGE, BROWN, DARKBROWN, WHITE, BLACK, 
+									  BLANK (transparent), MAGENTA, RAYWHITE (raylib custom) */
+
+		// raylib custom color: Color myColor = { red, green, blue, alpha };  // Each value 0-255
 		 
 		//clears screen with specified color to prevent overlapping drawings
 		ClearBackground(LIGHTGRAY);
 
 		//drawing a circle: x position, y position, radius, color
-		DrawCircle(ballx, bally, 20, PINK);
 
+		//for all balls in the vector
+		for (int i = 0; i < balls.size(); i++) {
+			DrawCircle(balls[i].ballx, balls[i].bally, 20, balls[i].color);
+		}
 		EndDrawing();
 	}
 
