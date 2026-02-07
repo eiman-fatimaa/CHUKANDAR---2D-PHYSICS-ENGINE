@@ -1,10 +1,13 @@
 #include <raylib.h>
+#include <iostream>
+#include <cmath>
+#include <vector>
 int main() {
 //creating game window
 	int ballx = 400;
 	int bally = 400;
 	//initWindow(width is pixels, height, window name)
-	InitWindow(800, 800, "Eiman and Aima's mighty simulation");
+	InitWindow(800, 800, "Eiman's Angry Escape");
 	
 	SetTargetFPS(60); //takes in an integer
 	//Update game loop 60 times per sec, ensures same speed for all
@@ -19,9 +22,19 @@ int main() {
 		if (IsKeyDown(KEY_UP)) {
 			bally -= 3; //decreases y coordinate of ball by 3 pixels every frame
 		}
+		if (IsKeyDown(KEY_DOWN)) {
+			bally += 3; //increases y coordinate of ball by 3 pixels every frame
+		}
+		if (IsKeyDown(KEY_LEFT)) {
+			ballx -= 3; //decreases x coordinate of ball by 3 pixels every frame
+		}
+		if (IsKeyDown(KEY_RIGHT)) {
+			ballx += 3; //increases x coordinate of ball by 3 pixels every frame
+		}
 
 		//2. Updating position
-		ballx += 3; //increases x coordinate of ball by 3 pixels every frame
+		//increases y coordinate of ball by 3 pixels every frame
+		bally += 3; //gravity, makes ball fall down
 
 		//3. Drawing
 		BeginDrawing();
